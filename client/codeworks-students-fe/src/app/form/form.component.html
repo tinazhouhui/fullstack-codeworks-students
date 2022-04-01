@@ -1,0 +1,8 @@
+<form [formGroup]="newStudent" (ngSubmit)="handleSubmit()">
+  <input formControlName="id" type="text" placeholder="id" required>
+  <input formControlName="name" type="text" placeholder="name" required>
+  <input formControlName="campus" type="text" placeholder="campus" required>
+  <input formControlName="age" type="text" placeholder="age" required>
+  <input formControlName="junior" type="checkbox" placeholder="junior">
+  <button type="submit" [disabled]="newStudent.invalid">Create me</button>
+</form>
