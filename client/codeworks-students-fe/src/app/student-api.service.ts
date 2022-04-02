@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Student} from "../interfaces/student";
@@ -12,17 +12,31 @@ export class StudentApiService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
-    })
+    }),
   }
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   getStudents(): Observable<any> {
     return this.http.get(`${this.rootUrl}students`)
   }
 
   saveStudent(newStudent: Student): Observable<string> {
-    console.log('saving', newStudent)
     return this.http.post<string>(`${this.rootUrl}student`, newStudent, this.httpOptions)
+  }
+
+  deleteStudent(id: string) {
+    console.log('deleting', id)
+
+    const httDeleteOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      body: {
+        id
+      }
+    }
+    return this.http.delete(`${this.rootUrl}student`, httDeleteOptions)
   }
 }

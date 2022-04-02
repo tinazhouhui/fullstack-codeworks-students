@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {StudentApiService} from "../student-api.service";
+import {CampusFilterService} from "../campus-filter.service";
 
 @Component({
   selector: 'app-form',
@@ -16,7 +17,7 @@ export class FormComponent implements OnInit {
     junior: false,
   })
 
-  constructor(private formBuilder: FormBuilder, private studentApi: StudentApiService) { }
+  constructor(private formBuilder: FormBuilder, private studentApi: StudentApiService, private campusFilter: CampusFilterService) { }
 
   ngOnInit(): void {
     // this.newStudent.valueChanges
@@ -26,7 +27,11 @@ export class FormComponent implements OnInit {
   handleSubmit () {
     console.log('button click')
     this.studentApi.saveStudent(this.newStudent.value)
-      .subscribe(res => console.log(res));  // gotta subscribe
+      .subscribe(res => {
+        console.log('saving')
+        console.log(res)
+        this.campusFilter.initialFetch()
+      });  // gotta subscribe
     this.newStudent.reset()
   }
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, of} from "rxjs";
+import {BehaviorSubject} from "rxjs";
 import {Student} from "../interfaces/student";
 import {StudentApiService} from "./student-api.service";
 

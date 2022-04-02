@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Student} from "../../interfaces/student";
+import {StudentApiService} from "../student-api.service";
+import {CampusFilterService} from "../campus-filter.service";
 
 @Component({
   selector: 'app-student',
@@ -11,10 +13,18 @@ export class StudentComponent implements OnInit {
   @Input()
   student!: Student;
 
-  constructor() { }
+  constructor(private studentApi: StudentApiService, private campusFilter: CampusFilterService) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
 
+  deleteMe () {
+    console.log(this.student)
+    this.studentApi.deleteStudent(this.student._id)
+      .subscribe(response => {
+        if (response) {
+          this.campusFilter.initialFetch()
+        }
+      });
   }
 
 }
