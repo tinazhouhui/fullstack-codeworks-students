@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {CampusFilterService} from "../campus-filter.service";
 
 @Component({
   selector: 'app-campus',
@@ -11,9 +12,15 @@ export class CampusComponent implements OnInit {
   @Input()
   campus!: string
 
-  constructor() { }
+  constructor(private campusFilter: CampusFilterService) { }
 
   ngOnInit(): void {
+  }
+
+  filterCampus($event: any) {
+    console.log(this.campus)
+    console.log($event)
+    this.campusFilter.setFilterStudents(this.campus)
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {StudentApiService} from "../student-api.service";
 import {Student} from "../../interfaces/student";
+import {CampusFilterService} from "../campus-filter.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -8,25 +9,24 @@ import {Student} from "../../interfaces/student";
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  allStudents: Student[] = [];
+  students: Student[] = [];
   campai: string[] = [];
 
-  constructor(private studentApi: StudentApiService) { }
+  constructor(private studentApi: StudentApiService, private campusFilter: CampusFilterService) { }
 
   ngOnInit(): void {
-    this.getAllStudents()
+    this.setStudents()
   }
 
-  getAllStudents(){
-    this.studentApi.getStudents()
-      .subscribe(res => {
-        this.allStudents = res
-        this.campai = this.getCampuses()
-      })
+  setStudents () {
+    this.campusFilter.studentFiltered$.subscribe(students => {
+      this.students = students
+      this.campai = this.getCampuses()
+    })
   }
 
    getCampuses(): string[] {
-    return this.allStudents.map(student => student.campus);
+    const allCampai = this.campusFilter.studentAll.map(student => student.campus);
+    return [...new Set(allCampai)]
   }
-
 }
