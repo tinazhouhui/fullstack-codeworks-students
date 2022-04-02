@@ -20,16 +20,13 @@ export class FormComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private studentApi: StudentApiService, private campusFilter: CampusFilterService) { }
 
   ngOnInit(): void {
-    // this.newStudent.valueChanges
-    //   .subscribe(form => console.log(form))
+
   }
 
   handleSubmit () {
     console.log('button click')
     this.studentApi.saveStudent(this.newStudent.value)
       .subscribe(res => {
-        console.log('saving')
-        console.log(res)
         this.campusFilter.initialFetch()
       });  // gotta subscribe
     this.newStudent.reset()

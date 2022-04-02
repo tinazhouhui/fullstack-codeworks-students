@@ -18,7 +18,6 @@ export class StudentComponent implements OnInit {
   ngOnInit(): void { }
 
   deleteMe () {
-    console.log(this.student)
     this.studentApi.deleteStudent(this.student._id)
       .subscribe(response => {
         if (response) {

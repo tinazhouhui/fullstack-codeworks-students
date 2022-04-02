@@ -27,8 +27,6 @@ export class StudentApiService {
   }
 
   deleteStudent(id: string) {
-    console.log('deleting', id)
-
     const httDeleteOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
