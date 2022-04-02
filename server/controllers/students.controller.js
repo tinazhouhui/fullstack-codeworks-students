@@ -6,24 +6,27 @@ async function getAllStudents(ctx) {
 }
 
 async function createStudent(ctx) {
-  console.log(ctx.request.body)
-  await dbModel.createStudent(ctx.request.body).then(() => {
-    ctx.body = `Gotcha Buddy! ${ctx.request.body.name} Student Created!`
+  await dbModel.createStudent(ctx.request.body).then((output) => {
+    ctx.body = output
   })
 }
 
 async function updateStudent(ctx) {
-  await dbModel.updateStudent(ctx.request.body.id, ctx.request.body.newInfo).then(() =>
-  ctx.body = `Gotcha Buddy! ${ctx.request.body.name} Student updated!`)
+  await dbModel.updateStudent(ctx.request.body.id, ctx.request.body.newInfo).then((output) =>
+    ctx.body = output)
 }
 
 async function deleteStudent(ctx) {
-  await dbModel.deleteStudent(ctx.request.body.id).then(() =>
-  ctx.body = `Gotcha Buddy! ${ctx.request.body.name} Student deleted!`)
+  await dbModel.deleteStudent(ctx.request.body.id)
+    .then((output) => {
+    ctx.body = output
+  })
+
 }
 
 async function getStudent(ctx) {
   const resp = await dbModel.getStudent(ctx.request.body.id)
+  ctx.body = resp
 }
 
 

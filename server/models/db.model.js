@@ -13,7 +13,7 @@ async function createStudent(student){
 }
 
 async function deleteStudent(id){
-  return await students.deleteOne({id: id})
+  return await students.findOneAndDelete({_id: id})
 }
 
 async function updateStudent(id, newInfo){
